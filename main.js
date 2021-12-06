@@ -2,7 +2,7 @@
 function initMap(){
 
     const ubicacion =new Localizacion(()=>{
-        const options ={
+        const options = {
             center: {
                 lat: ubicacion.latitude,
                 lng: ubicacion.longitude
@@ -12,7 +12,7 @@ function initMap(){
         }
 
         var map = document.getElementById('map');
-        const mapa = new google.maps.Map(map,options);
+        const mapa = new google.maps.Map(map, options);
     });
 
 }
