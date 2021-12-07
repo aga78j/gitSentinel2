@@ -7,3 +7,7 @@ h1 {
   margin-right: 0;
   font-weight: bold;
 }
+body {
+  background-image: url("clickandbuilds/tfg-sentinel2/fondoSentinel2.png");
+  
+}
