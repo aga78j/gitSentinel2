@@ -3,12 +3,13 @@ from sentinelsat import SentinelAPI
 
 api = SentinelAPI('agarciabellan', '@Gar1983')
 
-tiles = ['33VUC']
+tiles = ['30SWH']
 
 query_kwargs = {
         'platformname': 'Sentinel-2',
         'producttype': 'S2MSI1C',
-        'date': ('NOW-3DAYS', 'NOW')}
+        'date': ('NOW-2DAYS', 'NOW')
+        }
 
 products = OrderedDict()
 for tile in tiles:
