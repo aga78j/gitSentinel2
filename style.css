@@ -10,16 +10,17 @@ h1 {
 	text-shadow: -2px 0 #fff, 0 2px #fff, 2px 0 #fff, 0 -2px #fff
 }
 
-.map {
+#map {
         height: 400px;
         width: 30%;
   		border: 4.5px solid #b3c5db;
+      display: block;
   	
       }
 
 body {
   
-  	background-image: url("fondoSentinel2a.png");
+  background-image: url("fondoSentinel2a.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
