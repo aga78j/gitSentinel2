@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Extracción en Python de datos ambientales de Sentinel-2</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
+<<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Extracción en Python de datos ambientales de Sentinel-2</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+          <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+    </head>
     
-    <h1>Extracción en Python de datos ambientales de Sentinel-2</h1>
-
-
-
-
+    <body>
+       
+      <h1>Seleccione Zona de Teledetección</h1>
+        <div id="map" class="map"></div>
+        <script type="text/javascript">
+          var map = new ol.Map({
+            target: 'map',
+            layers: [
+              new ol.layer.Tile({
+                source: new ol.source.OSM()
+              })
+            ],
+            view: new ol.View({
+              center: ol.proj.fromLonLat([-4.41, 38.82]),
+              zoom: 5
+            })
+          });
+        </script>
     
-
-</body>
-</html>
+    </body>
+    </html>
