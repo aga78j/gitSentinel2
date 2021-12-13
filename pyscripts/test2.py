@@ -1,6 +1,3 @@
-
-
-
 # connect to the API
 from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
 from datetime import date
@@ -26,4 +23,3 @@ api.to_geojson(products)
 
 # GeoPandas GeoDataFrame with the metadata of the scenes and the footprints as geometries
 #api.to_geodataframe(products)
-
