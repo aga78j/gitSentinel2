@@ -1,29 +1,37 @@
+body { margin: 0; 
+  padding: 0; 
+  background-image: url("fondoSentinel2a.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover; }
+
+#map { 
+  
+position: absolute; 
+top: 0; 
+bottom: 0; 
+width: 35%; 
+height: 45%; 
+border: 4.5px solid #b3c5db;
+margin-top: 5.67em;
+margin-left: 2.67em;
+}
+
 h1 {
   display: block;
   font-size: 2em;
   margin-top: 0.67em;
   margin-bottom: 0.67em;
-  margin-left: 0;
-  margin-right: 0;
+  margin-left: 4.67em;
+  margin-right: 0em;
   font-weight: bold;
    color: #000;
 	text-shadow: -2px 0 #fff, 0 2px #fff, 2px 0 #fff, 0 -2px #fff
 }
 
-#map {
-        height: 400px;
-        width: 30%;
-  		border: 4.5px solid #b3c5db;
-      display: block;
-  	
-      }
-
-body {
-  
-  background-image: url("fondoSentinel2a.png");
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
-  
-}
+p {
+  font-family: 'Open Sans';
+  margin: 0;
+  font-size: 13px;
+  }

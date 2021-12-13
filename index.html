@@ -1,30 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Extracción en Python de datos ambientales de Sentinel-2</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
-  	<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+<meta charset="utf-8">
+<title>Sentinel-2</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
 </head>
-
 <body>
-   
-  <h1>Seleccione Zona de Teledetección</h1>
-    <div id="map" class="map"></div>
-    <script type="text/javascript">
-      var map = new ol.Map({
-        target: 'map',
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-4.41, 38.82]),
-          zoom: 5
-        })
-      });
-    </script>
-
-</body>
+<h1>Seleccione zona de teledetección</h1>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.2/mapbox-gl-draw.js"></script>
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.2/mapbox-gl-draw.css" type="text/css">
+<div id="map"></div>
+</div>
+ <script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWdhcmNpYWJlbGxhbiIsImEiOiJja3gyOTBmZWMwa2FxMm9waGh2eXVyeWk4In0.IJG9PzUdQTlghLTsb5IMPg';
+const map = new mapboxgl.Map({
+container: 'map', 
+style: 'mapbox://styles/mapbox/satellite-v9', 
+center: [-3.749, 40.157], 
+zoom: 5 
+});
+ const draw = new MapboxDraw({
+displayControlsDefault: false,
+controls: {
+polygon: true,
+trash: true
+},
+defaultMode: 'draw_polygon'
+});
+map.addControl(draw);
+ </script>
+ </body>
 </html>
