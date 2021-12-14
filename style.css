@@ -1,10 +1,12 @@
-body { margin: 0; 
-  padding: 0; 
-  background-image: url("fondoSentinel2a.png");
+
+body { 
+
+  	background-image: url("fondoSentinel2a.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	background-size: cover; }
+	background-size: cover; 
+}
 
 #map { 
   
@@ -12,15 +14,10 @@ position: absolute;
 top: 0; 
 bottom: 0; 
 width: 35%; 
-height: 45%; 
+height: 65%; 
 border: 4.5px solid #b3c5db;
 margin-top: 5.67em;
 margin-left: 2.67em;
 }
 
 
-p {
-  font-family: 'Open Sans';
-  margin: 0;
-  font-size: 13px;
-  }
