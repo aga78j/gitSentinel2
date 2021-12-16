@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Sentinel-2</title>
-<link rel="stylesheet" href="style.css" type="text/css">
-</head>
-<body>
-
+  <head>
+    <meta charset="utf-8" />
+    <title>Sentinel-2</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
     <h1>SENTINEL-2</h1>
 
-    <iframe id="map"
-    title="Mapa uMap"
-    src="https://umap.openstreetmap.fr/es/map/new/#5/37.910/-1.274">
-    </iframe>
-
-</body>
+    <table>
+      <tr>
+        <td>
+          <iframe
+            id="map"
+            title="Mapa uMap"
+            src="https://umap.openstreetmap.fr/es/map/new/#5/37.910/-1.274"
+          >
+          </iframe>
+        </td>
+        <td style="background-color: white;">
+          <form action="test2.py" method="post">
+            Satélite: <select id="TipoSatelite">
+                <option value="S1">Sentinel 1B</option>
+                <option value="S2">Sentinel 2A</option>
+            </select><br>
+            Fecha de inicio: <input type="date" id="FechaInicio"><br>
+            Fecha de fin: <input type="date" id="FechaFin"><br>
+        </td>
+        <td><input type="submit"></form></td>
+      </tr>
+    </table>
+  </body>
 </html>

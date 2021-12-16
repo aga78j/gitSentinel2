@@ -8,13 +8,13 @@ body {
 	}
 
 #map { 
-  	position: absolute; 
+  	/* position: absolute; 
 	top: 0; 
-	bottom: 0; 
-	width: 35%; 
-	height: 65%; 
+	bottom: 0;  */
+	width: 500px; 
+	height: 500px; 
 	border: 4.5px solid #b3c5db;
-	margin-top: 5.67em;
+	/* margin-top: 5.67em; */
 	margin-left: 2.67em;
 	}
 
@@ -27,12 +27,17 @@ h1 {
 	text-shadow: 0 3px 4px #c4b59d, 0px -2px 1px #fff;
 	font-weight: bold;
 	letter-spacing: -4px;
-	position: absolute;
-	padding: 100px 200px;
-	top: 3%;
-	left: 20%;
-	transform: translate(-50%,-50%);
+	/* position: absolute; */
+	/* padding: 100px 200px; */
+	/* top: 3%;
+	left: 20%; */
+	/* transform: translate(-50%,-50%); */
 	border-radius: 20px;
 	}
 
+td{
+
+
+	
+}
 
