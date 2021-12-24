@@ -7,20 +7,22 @@ api = SentinelAPI('agarciabellan', '@Gar1983', 'https://apihub.copernicus.eu/api
 
 
 # search by polygon, time, and SciHub query keywords
-footprint = geojson_to_wkt(read_geojson('archivos_geoJSON\marmenor.geojson'))
+footprint = geojson_to_wkt(read_geojson('archivos_geoJSON\murcia.geojson'))
 products = api.query(footprint,
-                     date=('20151219', date(2015, 12, 29)),
+                     date=('NOW-15DAYS', 'NOW'),
                      platformname='Sentinel-2',
+                     producttype = 'S2MSI1C',
                      cloudcoverpercentage=(0, 30))
 
 # download all results from the search
-api.download_all(products)
+#api.download_all(products, directory_path='C:/Users/agarc/Desktop/TFG/gitSentinel2/fotos')
+api.download_all_quicklooks(products)
 
 # convert to Pandas DataFrame
-products_df = api.to_dataframe(products)
+#products_df = api.to_dataframe(products)
 
 # GeoJSON FeatureCollection containing footprints and metadata of the scenes
-api.to_geojson(products)
+#api.to_geojson(products)
 
 # GeoPandas GeoDataFrame with the metadata of the scenes and the footprints as geometries
 #api.to_geodataframe(products)

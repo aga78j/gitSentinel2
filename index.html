@@ -18,15 +18,18 @@
           </iframe>
         </td>
         <td style="background-color: white;">
-          <form action="test2.py" method="post">
-            Satélite: <select id="TipoSatelite">
-                <option value="S1">Sentinel 1B</option>
-                <option value="S2">Sentinel 2A</option>
+          <form action="http://localhost:5000/download" method="post">
+            Satélite: <select id="TipoSatelite" name="platform">
+                <option value="Sentinel-1">Sentinel 1B</option>
+                <option value="Sentinel-2">Sentinel 2A</option>
             </select><br>
-            Fecha de inicio: <input type="date" id="FechaInicio"><br>
-            Fecha de fin: <input type="date" id="FechaFin"><br>
+            Fecha de inicio: <input type="date" id="FechaInicio" name="date_init"><br>
+            Fecha de fin: <input type="date" id="FechaFin" name="date_end"><br>
+            Producto: <input type="text" name="product"><br>
+            <input type="submit">
+          </form>
         </td>
-        <td><input type="submit"></form></td>
+        <td></td>
       </tr>
     </table>
   </body>
