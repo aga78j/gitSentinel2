@@ -9,7 +9,7 @@ api = SentinelAPI('agarciabellan', '@Gar1983', 'https://apihub.copernicus.eu/api
 # search by polygon, time, and SciHub query keywords
 footprint = geojson_to_wkt(read_geojson('archivos_geoJSON\murcia.geojson'))
 products = api.query(footprint,
-                     date=('NOW-15DAYS', 'NOW'),
+                     date=('20211209', '20211224'),
                      platformname='Sentinel-2',
                      producttype = 'S2MSI1C',
                      cloudcoverpercentage=(0, 30))
