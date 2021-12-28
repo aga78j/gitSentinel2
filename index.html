@@ -18,18 +18,30 @@
           </iframe>
         </td>
         <td style="background-color: #cccccc; opacity: 0.8; vertical-align: top; padding: 10px; width: 300px;">
-
-          <h3>
-            Sentinel-2 es muy bonito
-          </h3>
-
+          
+          <label>Acerca de Sentinel-2</label>
+          <textarea>          
+            Consiste en una misión multiespectral, abarca 13 bandas del espectro electromagnético de alta resolución en órbita polar, consiguiendo un tamaño de pixel de 10, 20 o 60 metros.
+            
+          Formado por 2 Satélites, entre los dos obtienen una imagen del mismo punto cada 5 días. Su función principal es monitorizar la tierra estudiando la cubierta vegetal, los usos del terreno y de las aguas, los cauces navegables y las zonas costeras.
+          </textarea>
+          
           <form action="http://localhost:5000/download" method="post">
-            <p>Plataforma: Sentinel 2</p>
+            
+            <fieldset>
+            <legend>Filtro Teledetección</legend>
             <p>Fecha de inicio: <input type="date" id="FechaInicio" name="date_init"></p>
             <p>Fecha de fin: <input type="date" id="FechaFin" name="date_end"></p>
             <p>Producto: <select name="product">
               <option>S2MSI1C</option>
               <option>S2MSI2A</option>
+            </select></p>
+
+             
+            <p>Plataforma: <select name="platform">
+                <option>Sentinel-2</option>
+                
+                
             </select></p>
             <p>Nubosidad: <select name="cloud">
               <option>10</option>
@@ -37,6 +49,7 @@
               <option>30</option>
             </select></p><br>
             <input type="submit">
+          </fieldset>
           </form>
         </td>
         <td></td>

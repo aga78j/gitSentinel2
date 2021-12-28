@@ -12,7 +12,7 @@ body {
 	top: 0; 
 	bottom: 0;  */
 	width: 500px; 
-	height: 500px; 
+	height: 700px; 
 	border: 4.5px solid #b3c5db;
 	/* margin-top: 5.67em; */
 	margin-left: 2.67em;
@@ -36,4 +36,8 @@ h1 {
 	padding-left: 180px;
 	}
 
-
+textarea {
+	width: 300px; 
+	height: 300px;
+	
+}
