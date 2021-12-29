@@ -10,7 +10,8 @@ def download():
     products = api.query(footprint,
                      date=(request.form.get('date_init').replace('-', ''), request.form.get('date_end').replace('-', '')),
                      platformname=request.form.get('platform'),
-                     producttype = request.form.get('product'), #S2MSI1C
-                     cloudcoverpercentage=(0, 30))
-    api.download_all_quicklooks(products, directory_path='C:/Users/agarc/Desktop/TFG/gitSentinel2/fotos')
+                     producttype = request.form.get('product'),
+                     cloudcoverpercentage=(0, int(request.form.get("cloud"))))
+    #print(request.form.get('date_init').replace('-', ''), request.form.get('date_end').replace('-', ''), request.form.get('platform'), request.form.get('product'))
+    api.download_all(products, directory_path='C:/Users/agarc/Desktop/TFG/gitSentinel2/fotos')
     return "terminado"
