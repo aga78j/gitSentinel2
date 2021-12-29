@@ -26,10 +26,12 @@
           Formado por 2 Satélites, entre los dos obtienen una imagen del mismo punto cada 5 días. Su función principal es monitorizar la tierra estudiando la cubierta vegetal, los usos del terreno y de las aguas, los cauces navegables y las zonas costeras.
           </textarea>
           
-          <form action="http://localhost:5000/download" method="post">
+          <form action="http://localhost:5000/download" enctype="multipart/form-data" method="post">
             
             <fieldset>
             <legend>Filtro Teledetección</legend>
+            <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
+            <input type="file" id="geoJSON" name="geoJSON"/>
             <p>Fecha de inicio: <input type="date" id="FechaInicio" name="date_init"></p>
             <p>Fecha de fin: <input type="date" id="FechaFin" name="date_end"></p>
             <p>Producto: <select name="product">
@@ -47,8 +49,33 @@
               <option>10</option>
               <option>20</option>
               <option>30</option>
-            </select></p><br>
-            <input type="submit">
+            </select></p>
+           
+            <div id="myProgress">
+              <div id="myBar">
+                <div id="label">0%</div>
+              </div>
+            </div><br>
+            <input type="submit" value="Descargar Producto">
+            <br>
+            
+            
+            <script>
+            function move() {
+              var elem = document.getElementById("myBar");   
+              var width = 10;
+              var id = setInterval(frame, 10);
+              function frame() {
+                if (width >= 100) {
+                  clearInterval(id);
+                } else {
+                  width++; 
+                  elem.style.width = width + '%'; 
+                  document.getElementById("label").innerHTML = width * 1  + '%';
+                }
+              }
+            }
+            </script>
           </fieldset>
           </form>
         </td>

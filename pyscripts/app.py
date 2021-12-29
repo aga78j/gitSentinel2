@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/download', methods=['POST'])
 def download():
-    footprint = geojson_to_wkt(read_geojson('C:/Users/agarc/Desktop/TFG/gitSentinel2/archivos_geoJSON/murcia.geojson'))
+    footprint = geojson_to_wkt(read_geojson(request.form.get('geoJSON')))
     products = api.query(footprint,
                      date=(request.form.get('date_init').replace('-', ''), request.form.get('date_end').replace('-', '')),
                      platformname=request.form.get('platform'),
