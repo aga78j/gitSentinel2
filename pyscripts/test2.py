@@ -16,7 +16,7 @@ products = api.query(footprint,
 
 # download all results from the search
 #api.download_all(products, directory_path='C:/Users/agarc/Desktop/TFG/gitSentinel2/fotos')
-#api.download_all_quicklooks(products)
+api.download_all_quicklooks(products)
 
 # convert to Pandas DataFrame
 #products_df = api.to_dataframe(products)
