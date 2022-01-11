@@ -1,7 +1,6 @@
 import fnmatch
 import os
 import zipfile
-import rasterio
 import cv2
 
 from flask import Flask, request
@@ -96,26 +95,4 @@ def download():
 
 
     return redirect('https://www.tfg-sentinel2.eu/')
-
-
-
-
-@app.route('/show', methods=['GET'])
-def show():
-    R10 = '../fotos/S2A_MSIL2A_20211201T105421_N0301_R051_T30SXG_20211201T153252.SAFE/GRANULE/L2A_T30SXG_A033653_20211201T105655/IMG_DATA/R10m'
-
-    b4 = rasterio.open(R10 + '/T30SXG_20211201T105421_B04_10m.jp2', driver='JP2OpenJPEG')
-    b3 = rasterio.open(R10 + '/T30SXG_20211201T105421_B03_10m.jp2', driver='JP2OpenJPEG')
-    b2 = rasterio.open(R10 + '/T30SXG_20211201T105421_B02_10m.jp2', driver='JP2OpenJPEG')
-
-    with rasterio.open('RGB3.tiff', 'w', driver='Gtiff', width=b4.width, height=b4.height, count=3, crs=b4.crs,
-                       transform=b4.transform, dtype=b4.dtypes[0]) as rgb:
-        rgb.write(b4.read(1), 3)
-        rgb.write(b3.read(1), 2)
-        rgb.write(b2.read(1), 1)
-        plot.show(rgb)
-
-
-    return"terminado"
-
 
