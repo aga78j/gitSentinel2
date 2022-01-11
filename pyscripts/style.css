@@ -1,0 +1,87 @@
+
+body { 
+	background-image: url("fondoSentinel2.jpg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover; 
+	}
+
+#map { 
+  	/* position: absolute; 
+	top: 0; 
+	bottom: 0;  */
+	width: 500px; 
+	height: 700px; 
+	border: 4.5px solid #b3c5db;
+	/* margin-top: 5.67em; */
+	margin-left: 2.67em;
+	}
+
+h1 {
+	font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;;
+	text-transform: uppercase;
+	display: block;
+	font-size: 46px;
+	color: #f1ebe5;
+	text-shadow: 0 3px 4px #c4b59d, 0px -2px 1px #fff;
+	font-weight: bold;
+	letter-spacing: -4px;
+	/* position: absolute; */
+	/* padding: 100px 200px; */
+	/* top: 3%;
+	left: 20%; */
+	/* transform: translate(-50%,-50%); */
+	border-radius: 20px;
+	padding-left: 180px;
+	}
+
+textarea {
+	width: 300px; 
+	height: 300px;
+	
+}
+
+#myProgress {
+	position: relative;
+	width: 100%;
+	height: 30px;
+	background-color: #ddd;
+  }
+
+  #myBar {
+	position: absolute;
+	width: 10%;
+	height: 100%;
+	background-color: #4CAF50;
+  }
+
+  #label {
+	text-align: center;
+	line-height: 30px;
+	color: white;
+  }
+
+  [hidden] {
+	display: none !important;
+  }
+
+  .img
+{
+    display: inline-block;
+    width: 512px;
+    height: 512px;
+    position: absolute;
+	  top: 322px;
+    left: 955px;
+
+}
+
+  .video
+{
+    display: inline-block;
+	  position: absolute;
+	  top: 2px;
+    left: 928px;
+
+}
