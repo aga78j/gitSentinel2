@@ -25,10 +25,15 @@ app.config['UPLOAD_JSON'] = '../archivos_geoJSON'
 @app.route('/file_size', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def file_size():
+    suma = 0
+
+    with open("suma.txt", "r") as file:
+        suma = file.readline()
+
     cmd = 'ls -l ../fotos'
     stream = os.popen(cmd)
     output = stream.readlines()
-    return str(os.path.getsize('../fotos/' + output[-1].split()[-1]))
+    return suma + ":" + str(os.path.getsize('../fotos/' + output[-1].split()[-1]))
 
 
 
@@ -39,7 +44,7 @@ def get_max_size(products):
         size = float(products[key]['size'].split(' ')[0])
         suma += size
 
-    return suma
+    return suma * (1024 * 1024)
 
 @app.route('/download', methods=['POST'])
 def download():
@@ -57,6 +62,10 @@ def download():
                          cloudcoverpercentage=(0, int(request.form.get("cloud"))),
                          limit=1)
 
+    suma = get_max_size(products)
+
+    with open("suma.txt", "w") as file:
+        file.write(str(suma))
 
     api.download_all(products, directory_path='../fotos')
 
