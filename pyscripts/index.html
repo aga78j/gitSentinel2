@@ -1,141 +1,260 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
 
     <script type="text/javascript">
-      var size2=-1;
-      var ID=-1;
+        var size2 = -1;
+        var ID = -1;
 
-      function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-      }
-
-      async function get_size(){
-        var max_size = 850000000;
-        await sleep(1000);
-        var size = await fetch('https://tfg-sentinel2.eu/api_flask/file_size', {
-        method: 'GET'
-        }).then((res)=>{
-        return res.text();
-        });
-
-        var porcentaje=(size/max_size)*100;
-        var elem = document.getElementById("myBar");
-        elem.style.width = porcentaje + "%";
-
-        var elem2= document.getElementById("label");
-        var elem3= Math.round(porcentaje);
-        if (elem3 >100){
-          elem3=100;
-          window.clearInterval(ID)
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         }
-        if (size2!=-1){
-            size2=size;
 
+        async function get_size() {
+            var max_size = 850000000;
+            await sleep(1000);
+            var size = await fetch('https://tfg-sentinel2.eu/api_flask/file_size', {
+                method: 'GET'
+            }).then((res) => {
+                return res.text();
+            });
+
+            var porcentaje = (size / max_size) * 100;
+            var elem = document.getElementById("myBar");
+            elem.style.width = porcentaje + "%";
+
+            var elem2 = document.getElementById("label");
+            var elem3 = Math.round(porcentaje);
+            if (elem3 > 100) {
+                elem3 = 100;
+                window.clearInterval(ID)
+            }
+            if (size2 != -1) {
+                size2 = size;
+
+            } else if (size == size2) {
+                elem3 = 100;
+                window.clearInterval(ID)
+
+
+            }
+            elem2.innerText = elem3 + "%";
         }
-        else if (size==size2){
-          elem3=100;
-          window.clearInterval(ID)
+
+        async function download_file(form) {
+            document.getElementById("video").src = "https://www.youtube.com/embed/pl7WkG_T3M4?autoplay=1";
+
+            const response = await fetch('https://tfg-sentinel2.eu/api_flask/download', {
+                method: 'POST', body: form
+            });
+
+            ID = window.setInterval(function () {
+
+                get_size();
 
 
+            }, 2000);
         }
-        elem2.innerText=elem3+ "%";
-      }
-      async function download_file(form) {
-        const response = await fetch('https://tfg-sentinel2.eu/api_flask/download', {
-        method: 'POST', body: form
-        });
-
-        ID=window.setInterval(function() {
-
-          get_size();
-
-
-          },2000);
-      }
 
 
     </script>
 
 
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Sentinel-2</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
-  </head>
-  <body>
-    <h1>SENTINEL-2</h1>
-    <table>
-      <tr>
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+</head>
+<body>
+<h1>SENTINEL-2</h1>
+
+<table>
+    <tr>
         <td>
-          <iframe
-            id="map"
-            title="Mapa uMap"
-            src="https://umap.openstreetmap.fr/es/map/new/#5/37.910/-1.274"
-          >
-          </iframe>
+            <iframe
+                    id="map"
+                    title="Mapa uMap"
+                    src="https://umap.openstreetmap.fr/es/map/new/#5/37.910/-1.274"
+            >
+            </iframe>
         </td>
         <td style="background-color: #cccccc; opacity: 0.8; vertical-align: top; padding: 10px; width: 300px;">
-          
-          <label>Acerca de Sentinel-2</label>
-          <textarea>          
+
+            <label>Acerca de Sentinel-2</label>
+            <textarea>
             Consiste en una misión multiespectral, abarca 13 bandas del espectro electromagnético de alta resolución en órbita polar, consiguiendo un tamaño de pixel de 10, 20 o 60 metros.
             
           Formado por 2 Satélites, entre los dos obtienen una imagen del mismo punto cada 5 días. Su función principal es monitorizar la tierra estudiando la cubierta vegetal, los usos del terreno y de las aguas, los cauces navegables y las zonas costeras.
+
+
+
           </textarea>
 
+            <form onsubmit="download_file(this)" action="https://tfg-sentinel2.eu/api_flask/download" method="post"
+                  enctype="multipart/form-data">
+                <fieldset>
+                    <legend>Filtro Teledetección</legend>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
+                    <input type="file" id="geoJSON" name="geoJSON"/>
+                    <p>Fecha de inicio: <input type="date" id="FechaInicio" name="date_init"></p>
+                    <p>Fecha de fin: <input type="date" id="FechaFin" name="date_end"></p>
+                    <p>Producto: <select name="product">
+                        <option>S2MSI1C</option>
+                        <option>S2MSI2A</option>
+                    </select></p>
 
-          <form onsubmit="download_file(this)" action="https://tfg-sentinel2.eu/api_flask/download" method="post" enctype="multipart/form-data">
-            <fieldset>
-            <legend>Filtro Teledetección</legend>
-              <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
-            <input type="file" id="geoJSON" name="geoJSON"/>
-            <p>Fecha de inicio: <input type="date" id="FechaInicio" name="date_init"></p>
-            <p>Fecha de fin: <input type="date" id="FechaFin" name="date_end"></p>
-            <p>Producto: <select name="product">
-              <option>S2MSI1C</option>
-              <option>S2MSI2A</option>
-            </select></p>
 
-             
-            <p>Plataforma: <select name="platform">
-                <option>Sentinel-2</option>
+                    <p>Plataforma: <select name="platform">
+                        <option>Sentinel-2</option>
 
-                
-            </select></p>
-            <p>Nubosidad: <select name="cloud">
-              <option>10</option>
-              <option>20</option>
-              <option>30</option>
-            </select></p><br>
 
-            <div id="myProgress">
-              <div id="myBar">
-                <div id="label">0%</div>
-              </div>
-            </div><br>
-            <input type="submit" value="Descargar Producto">
-            <br>
+                    </select></p>
+                    <p>Nubosidad: <select name="cloud">
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                    </select></p>
+                    <br>
 
-          </fieldset>
-          </form>
+                    <div id="myProgress">
+                        <div id="myBar">
+                            <div id="label">0%</div>
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" value="Descargar Producto">
+                    <br>
+
+                </fieldset>
+
+                <fieldset>
+                    <legend>Ver Historico Imagenes procesadas QGIS</legend>
+                    <ul class="galeria">
+                        <li><a href="#img1" target="_blank"> <img src="historico_fotos/QGIS.png"></a></li>
+                    </ul>
+
+                </fieldset>
+
+
+            </form>
         </td>
         <td>
-        <div class="video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/pl7WkG_T3M4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+            <div class="video">
+                <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/pl7WkG_T3M4"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
         </td>
 
-      <td>
+        <td>
 
-        <div class="img"><fieldset>
-           <legend>Imagen Band 2,3,4</legend>
-    <img src = "imagen_resize.png" tipo = "imagen / png"
-         negativo = si>
+            <div class="img">
+                <fieldset>
+                    <legend>Imagen Band 4,3,2</legend>
+                    <img src="imagen_resize.png" tipo="imagen / png"
+                         negativo=si>
 
-         </fieldset></div></td>
+                </fieldset>
+            </div>
+        </td>
 
-      </tr>
-    </table>
-  </body>
+    </tr>
+</table>
+
+
+<div class="modal" id="img1">
+    <h3>MURCIA -Color Natural (Bandas 4,3,2) Corrección Atmosférica-</h3>
+    <div class="imagen">
+        <a href="#img9">&#60;</a>
+        <a href="#img2"><img src="historico_fotos/4_3_2_murcia_2A.jpg"></a>
+        <a href="#img2">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+<div class="modal" id="img2">
+    <h3>MURCIA -Infrarojos Vegetación(Bandas 8,4,3) Corrección Atmosférica-</h3>
+    <div class="imagen">
+        <a href="#img1">&#60;</a>
+        <a href="#img3"><img src="historico_fotos/8_4_3_murcia_2A.jpg"></a>
+        <a href="#img3">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+<div class="modal" id="img3">
+    <h3>MURCIA -Terreno Urbanizado (Bandas 12,11,4) Corrección Atmosférica-</h3>
+    <div class="imagen">
+        <a href="#img2">&#60;</a>
+        <a href="#img4"><img src="historico_fotos/12_11_4_murcia_2A.jpg"></a>
+        <a href="#img4">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+<div class="modal" id="img4">
+    <h3>MADRID -Color Natural (Bandas 4,3,2)-</h3>
+    <div class="imagen">
+        <a href="#img3">&#60;</a>
+        <a href="#img5"><img src="historico_fotos/4_3_2_madrid_1C.jpg"></a>
+        <a href="#img5">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+<div class="modal" id="img5">
+    <h3>MADRID -Infrarojos Vegetación(Bandas 8,4,3)-</h3>
+    <div class="imagen">
+        <a href="#img4">&#60;</a>
+        <a href="#img6"><img src="historico_fotos/8_4_3_madrid_1C.jpg"></a>
+        <a href="#img6">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+
+<div class="modal" id="img6">
+    <h3>MADRID -Terreno Urbanizado (Bandas 12,11,4)-</h3>
+    <div class="imagen">
+        <a href="#img5">&#60;</a>
+        <a href="#img7"><img src="historico_fotos/12_11_4_madrid_1C.jpg"></a>
+        <a href="#img7">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+
+<div class="modal" id="img7">
+    <h3>Palma -Color Natural (Bandas 4,3,2)-</h3>
+    <div class="imagen">
+        <a href="#img6">&#60;</a>
+        <a href="#img8"><img src="historico_fotos/4_3_2_palma_1C.jpg"></a>
+        <a href="#img8">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+<div class="modal" id="img8">
+    <h3>Palma -Infrarojos Vegetación(Bandas 8,4,3)-</h3>
+    <div class="imagen">
+        <a href="#img7">&#60;</a>
+        <a href="#img9"><img src="historico_fotos/8_4_3_palma_1C.jpg"></a>
+        <a href="#img9">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+
+<div class="modal" id="img9">
+    <h3>Palma -Terreno Urbanizado (Bandas 12,11,4)-</h3>
+    <div class="imagen">
+        <a href="#img8">&#60;</a>
+        <a href="#img1"><img src="historico_fotos/12_11_4_palma_1C.jpg"></a>
+        <a href="#img1">></a>
+    </div>
+    <a class="cerrar" href="">X</a>
+</div>
+
+</body>
 </html>
 

@@ -30,6 +30,17 @@ def file_size():
     output = stream.readlines()
     return str(os.path.getsize('../fotos/' + output[-1].split()[-1]))
 
+
+
+def get_max_size(products):
+    suma = 0.0
+
+    for key in products.keys():
+        size = float(products[key]['size'].split(' ')[0])
+        suma += size
+
+    return suma
+
 @app.route('/download', methods=['POST'])
 def download():
     if request.method == 'POST':
@@ -45,6 +56,7 @@ def download():
                          producttype=request.form.get('product'),
                          cloudcoverpercentage=(0, int(request.form.get("cloud"))),
                          limit=1)
+
 
     api.download_all(products, directory_path='../fotos')
 
@@ -69,8 +81,6 @@ def download():
 
     archivo_zip.close()
 
-    # CONVERTIR JP2-PNG IMAGEN
-
     def get_tci_file(path):
         for root, subdir, files in os.walk(path):
             for file in files:
@@ -87,12 +97,27 @@ def download():
 
     tci_to_jpg("../fotos")
 
-
-###RESIZE IMAGEN 512x512 JPG-PNG
+    ###RESIZE IMAGEN 512x512 JPG-PNG
     img = Image.open('../templates/imagen.jpg')
     new_img = img.resize((512, 512))
     new_img.save('../templates/imagen_resize.png', 'png')
 
+####BORRAR PRODUCTO .zip/.SAFE/.zip.incomplete
+
+    cmd = 'rm -rf ../fotos/*.zip && rm -rf ../fotos/*.SAFE'
+    stream = os.popen(cmd)
+    output2 = stream.readlines()
+
+####BORRAR archivos geoJSON
+    cmd = 'rm -rf ../archivos_geoJSON/*.geojson'
+    stream = os.popen(cmd)
+    output2 = stream.readlines()
+
 
     return redirect('https://www.tfg-sentinel2.eu/')
+
+
+
+
+
 
