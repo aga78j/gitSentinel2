@@ -6,18 +6,24 @@
         var size2 = -1;
         var ID = -1;
 
+
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         async function get_size() {
-            var max_size = 850000000;
+
             await sleep(1000);
-            var size = await fetch('https://tfg-sentinel2.eu/api_flask/file_size', {
+            var resp = await fetch('https://tfg-sentinel2.eu/api_flask/file_size', {
                 method: 'GET'
             }).then((res) => {
                 return res.text();
             });
+
+            console.log(resp);
+            var parts = resp.split(':');
+            var max_size = parseInt(parts[0]);
+            var size = parseInt(parts[1]);
 
             var porcentaje = (size / max_size) * 100;
             var elem = document.getElementById("myBar");
@@ -29,15 +35,7 @@
                 elem3 = 100;
                 window.clearInterval(ID)
             }
-            if (size2 != -1) {
-                size2 = size;
 
-            } else if (size == size2) {
-                elem3 = 100;
-                window.clearInterval(ID)
-
-
-            }
             elem2.innerText = elem3 + "%";
         }
 
@@ -82,7 +80,7 @@
             <label>Acerca de Sentinel-2</label>
             <textarea>
             Consiste en una misión multiespectral, abarca 13 bandas del espectro electromagnético de alta resolución en órbita polar, consiguiendo un tamaño de pixel de 10, 20 o 60 metros.
-            
+
           Formado por 2 Satélites, entre los dos obtienen una imagen del mismo punto cada 5 días. Su función principal es monitorizar la tierra estudiando la cubierta vegetal, los usos del terreno y de las aguas, los cauces navegables y las zonas costeras.
 
 
@@ -257,4 +255,5 @@
 
 </body>
 </html>
+
 
