@@ -2,10 +2,11 @@ import fnmatch
 import os
 import zipfile
 import cv2
+import mysql.connector
 
+from mysql.connector import errorcode
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
-from matplotlib import pyplot as plot
 from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
 from werkzeug.utils import secure_filename, redirect
 from PIL import Image
@@ -67,9 +68,48 @@ def download():
     with open("suma.txt", "w") as file:
         file.write(str(suma))
 
+        ####INSERTAR METADATOS A tabla productos
+
+        try:
+            mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                passwd="@Gar1983",
+                database="sentinel"
+            )
+
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+                print("Acceso denegado, revisar user/password")
+            elif err.errno == errorcode.ER_BAD_DB_ERROR:
+                print("La BBDD no existe")
+            else:
+                print(err)
+        else:
+            print("Conexion correcta con BBDD sentinel")
+
+        try:
+            mydb = mysql.connector.connect(host="localhost", user="root", passwd="@Gar1983", database="sentinel")
+            for key in products.keys():
+                sql = '''INSERT INTO productos(identifier, platformname, platformserialidentifier, processinglevel, orbitnumber, orbitdirection, ingestiondate, cloudcoverpercentage, instrumentname, size, footprint) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+                params = (
+                products[key]['identifier'], products[key]['platformname'], products[key]['platformserialidentifier'],
+                products[key]['processinglevel'], products[key]['orbitnumber'], products[key]['orbitdirection'],
+                products[key]['ingestiondate'], products[key]['cloudcoverpercentage'], products[key]['instrumentname'],
+                products[key]['size'], products[key]['footprint'])
+                cursor = mydb.cursor()
+                cursor.execute(sql, params)
+                mydb.commit()
+                print("Se ha insertado un producto a la tabla productos")
+        except Exception as err:
+            print("\nFailed to insert row into table scr:\n" + str(sql))
+            print(Exception, err)
+
+
+
     api.download_all(products, directory_path='../fotos')
 
-   #DESCOMPRIMIR PRODUCTO
+   #DESCOMPRIMIR PRODUCTO PARA OBTENER IMAGENES JP2
 
     cmd = 'ls -l ../fotos'
     stream = os.popen(cmd)
@@ -89,6 +129,9 @@ def download():
         pass
 
     archivo_zip.close()
+
+
+    #####CONVERTIR IMAGEN _TCI(4,3,2) de JP2 a JPG
 
     def get_tci_file(path):
         for root, subdir, files in os.walk(path):
@@ -111,16 +154,28 @@ def download():
     new_img = img.resize((512, 512))
     new_img.save('../templates/imagen_resize.png', 'png')
 
-####BORRAR PRODUCTO .zip/.SAFE/.zip.incomplete
 
+    #######ELIMINAR ARCHIVOS DEL SERVIDOR################
+    ####BORRAR PRODUCTO .zip/.SAFE/.zip.incomplete
     cmd = 'rm -rf ../fotos/*.zip && rm -rf ../fotos/*.SAFE'
     stream = os.popen(cmd)
     output2 = stream.readlines()
 
-####BORRAR archivos geoJSON
+    ####BORRAR archivos geoJSON
     cmd = 'rm -rf ../archivos_geoJSON/*.geojson'
     stream = os.popen(cmd)
-    output2 = stream.readlines()
+    output3 = stream.readlines()
+
+    ####BORRAR archivo suma.txt
+    cmd = 'rm -rf suma.txt'
+    stream = os.popen(cmd)
+    output4 = stream.readlines()
+
+    ####BORRAR imagen.jpg
+
+    cmd = 'rm -rf ../templates/imagen.jpg'
+    stream = os.popen(cmd)
+    output5 = stream.readlines()
 
 
     return redirect('https://www.tfg-sentinel2.eu/')
