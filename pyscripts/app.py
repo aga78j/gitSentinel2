@@ -1,4 +1,4 @@
-import fnmatch
+rt fnmatch
 import os
 import zipfile
 import cv2
@@ -77,30 +77,23 @@ def download():
                 passwd="@Gar1983",
                 database="sentinel"
             )
-
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                print("Acceso denegado, revisar user/password")
-            elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                print("La BBDD no existe")
-            else:
-                print(err)
-        else:
             print("Conexion correcta con BBDD sentinel")
-
-        try:
-            mydb = mysql.connector.connect(host="localhost", user="root", passwd="@Gar1983", database="sentinel")
             for key in products.keys():
                 sql = '''INSERT INTO productos(identifier, platformname, platformserialidentifier, processinglevel, orbitnumber, orbitdirection, ingestiondate, cloudcoverpercentage, instrumentname, size, footprint) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
-                params = (
-                products[key]['identifier'], products[key]['platformname'], products[key]['platformserialidentifier'],
-                products[key]['processinglevel'], products[key]['orbitnumber'], products[key]['orbitdirection'],
-                products[key]['ingestiondate'], products[key]['cloudcoverpercentage'], products[key]['instrumentname'],
-                products[key]['size'], products[key]['footprint'])
+                params = (products[key]['identifier'], products[key]['platformname'], products[key]['platformserialidentifier'], products[key]['processinglevel'], products[key]['orbitnumber'], products[key]['orbitdirection'],products[key]['ingestiondate'], products[key]['cloudcoverpercentage'], products[key]['instrumentname'], products[key]['size'], products[key]['footprint'])
                 cursor = mydb.cursor()
                 cursor.execute(sql, params)
                 mydb.commit()
                 print("Se ha insertado un producto a la tabla productos")
+
+        except mysql.connector.Error as err:
+                if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+                    print("Acceso denegado, revisar user/password")
+                elif err.errno == errorcode.ER_BAD_DB_ERROR:
+                    print("La BBDD no existe")
+                else:
+                    print(err)
+
         except Exception as err:
             print("\nFailed to insert row into table scr:\n" + str(sql))
             print(Exception, err)
@@ -166,18 +159,17 @@ def download():
     stream = os.popen(cmd)
     output3 = stream.readlines()
 
-    ####BORRAR archivo suma.txt
-    cmd = 'rm -rf suma.txt'
-    stream = os.popen(cmd)
-    output4 = stream.readlines()
-
     ####BORRAR imagen.jpg
 
     cmd = 'rm -rf ../templates/imagen.jpg'
     stream = os.popen(cmd)
+    output4 = stream.readlines()
+
+    ####BORRAR contenido archivo suma.txt
+    cmd = '> suma.txt'
+    stream = os.popen(cmd)
     output5 = stream.readlines()
-
-
+    
     return redirect('https://www.tfg-sentinel2.eu/')
 
 
