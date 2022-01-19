@@ -1,0 +1,54 @@
+{% for producto in productos %}
+{% endfor %}
+
+<html>
+<head> <title>Mostrar Tabla Metadatos</title> <meta charset="utf-8">
+<style type="text/css">
+
+h1 {
+
+	text-transform: uppercase;
+	display: block;
+	font-size: 36px;
+	color: #669;
+	text-shadow: 0 3px 4px #c4b59d, 0px -2px 1px #c4b59d;
+	font-weight: bold;
+	letter-spacing: -4px;
+    border-radius: 10px;
+	padding-left: 550px;
+
+	}
+
+table {     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif ;
+    font-size: 12px;    margin: 45px;     width: 480px; text-align: left;    border-collapse: collapse; }
+
+th {     font-size: 13px;     font-weight: normal;     padding: 8px;     background: #b9c9fe;
+    border-top: 4px solid #aabcfe;    border-bottom: 1px solid #fff; color: #039; }
+
+td {    padding: 8px;     background: #e8edff;     border-bottom: 1px solid #fff;
+    color: #669;    border-top: 1px solid transparent; }
+
+tr:hover td { background: #d0dafd; color: #339; }
+</style>
+</head>
+<body>
+<table >
+    <thead>
+<h1>Historico -Metadatos- Sentinel2</h1>
+<tr> <th>identifier</th> <th>platformname</th> <th>platformserialidentifier</th>
+     <th>processinglevel</th> <th>orbitnumber</th> <th>orbitdirection</th> <th>ingestiondate</th>
+    <th>cloudcoverpercentage</th> <th>instrumentname</th> <th>size</th> <th>footprint</th>
+</tr>
+  </thead>
+    <tbody>
+{% for producto in productos %}
+<tr> <td>{{ producto.0 }}</td> <td>{{ producto.1 }}</td> <td>{{ producto.2 }}</td>
+     <td>{{ producto.3 }}</td> <td>{{ producto.4 }}</td> <td>{{ producto.5 }}</td>
+     <td>{{ producto.6 }}</td> <td>{{ producto.7 }}</td> <td>{{ producto.8 }}</td>
+     <td>{{ producto.9 }}</td> <td>{{ producto.10 }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</body>
+</html>
