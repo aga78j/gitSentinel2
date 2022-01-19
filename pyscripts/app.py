@@ -1,11 +1,11 @@
-rt fnmatch
+import fnmatch
 import os
 import zipfile
 import cv2
 import mysql.connector
 
 from mysql.connector import errorcode
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_cors import CORS, cross_origin
 from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
 from werkzeug.utils import secure_filename, redirect
@@ -13,16 +13,32 @@ from PIL import Image
 
 
 
-#DESCARGAR PRODUCTO
+###CONFIGURACIÓN DE FLASK Y USUARIO COPERNICUS
 
 api = SentinelAPI('agarciabellan', '@Gar1983', 'https://apihub.copernicus.eu/apihub')
 
-app = Flask(__name__)
+app=Flask(__name__,template_folder='../templates')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['UPLOAD_JSON'] = '../archivos_geoJSON'
 
 
+
+####OBTENER TABLA DE METADATOS DE MYSQL####
+
+@app.route('/metadatos')
+def metadatos():
+    mydb = mysql.connector.connect(host="localhost", user="root", passwd="@Gar1983", database="sentinel")
+    cursor = mydb.cursor()
+    cursor.execute('SELECT * FROM productos ')
+    datos=cursor.fetchall()
+
+    return render_template('tab_metadatos.html', productos=datos)
+
+
+
+
+###OBTENER TAMAÑO DEL ARCHIVO MIENTRAS SE ESTA DESCARGANDO 
 @app.route('/file_size', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def file_size():
@@ -37,7 +53,7 @@ def file_size():
     return suma + ":" + str(os.path.getsize('../fotos/' + output[-1].split()[-1]))
 
 
-
+####OBTENER EL TAMAÑO TOTAL DEL PRODUCTO DESCARGADO MEDIANTE METADATOS
 def get_max_size(products):
     suma = 0.0
 
@@ -47,6 +63,9 @@ def get_max_size(products):
 
     return suma * (1024 * 1024)
 
+
+
+#DESCARGAR PRODUCTO
 @app.route('/download', methods=['POST'])
 def download():
     if request.method == 'POST':
@@ -169,11 +188,7 @@ def download():
     cmd = '> suma.txt'
     stream = os.popen(cmd)
     output5 = stream.readlines()
-    
+
     return redirect('https://www.tfg-sentinel2.eu/')
-
-
-
-
 
 
