@@ -11,6 +11,9 @@ from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
 from werkzeug.utils import secure_filename, redirect
 from PIL import Image
 
+Image.MAX_IMAGE_PIXELS = None
+
+
 
 
 ###CONFIGURACIÓN DE FLASK Y USUARIO COPERNICUS
@@ -38,7 +41,16 @@ def metadatos():
 
 
 
-###OBTENER TAMAÑO DEL ARCHIVO MIENTRAS SE ESTA DESCARGANDO 
+@app.route('/proyecto')
+def proyecto():
+
+    return render_template('proyecto.html')
+
+
+
+
+
+###OBTENER TAMAÑO DEL ARCHIVO MIENTRAS SE ESTA DESCARGANDO
 @app.route('/file_size', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def file_size():
@@ -189,6 +201,16 @@ def download():
     stream = os.popen(cmd)
     output5 = stream.readlines()
 
+    ####CREAR ARCHIVO 0.zip
+    cmd = 'touch ../fotos/0.zip'
+    stream = os.popen(cmd)
+    output2 = stream.readlines()
+
+
     return redirect('https://www.tfg-sentinel2.eu/')
+
+
+
+
 
 
