@@ -15,7 +15,6 @@ Image.MAX_IMAGE_PIXELS = None
 
 
 
-
 ###CONFIGURACIÓN DE FLASK Y USUARIO COPERNICUS
 
 api = SentinelAPI('agarciabellan', '@Gar1983', 'https://apihub.copernicus.eu/apihub')

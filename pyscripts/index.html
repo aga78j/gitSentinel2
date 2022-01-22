@@ -63,7 +63,8 @@
     <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
 <body>
-<h1>SENTINEL-2</h1>
+
+
 
 <table>
     <tr>
@@ -75,7 +76,7 @@
             >
             </iframe>
         </td>
-        <td style="background-color: #cccccc; opacity: 0.8; vertical-align: top; padding: 10px; width: 300px;">
+        <td style="background-color: #cccccc; opacity: 0.8; vertical-align: top; padding: 10px; width: 400px;">
 
             <label>Acerca de Sentinel-2</label>
             <textarea>
@@ -84,29 +85,27 @@
           Formado por 2 Satélites, entre los dos obtienen una imagen del mismo punto cada 5 días. Su función principal es monitorizar la tierra estudiando la cubierta vegetal, los usos del terreno y de las aguas, los cauces navegables y las zonas costeras.
 
 
-
           </textarea>
 
             <form onsubmit="download_file(this)" action="https://tfg-sentinel2.eu/api_flask/download" method="post"
                   enctype="multipart/form-data">
                 <fieldset>
                     <legend>Filtro Teledetección</legend>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
-                    <input type="file" id="geoJSON" name="geoJSON"/>
-                    <p>Fecha de inicio: <input type="date" id="FechaInicio" name="date_init"></p>
-                    <p>Fecha de fin: <input type="date" id="FechaFin" name="date_end"></p>
-                    <p>Producto: <select name="product">
+                    <p><input type="file" id="geoJSON" name="geoJSON"/></p>
+                    </br><p>Fecha de inicio: <input type="date" id="FechaInicio" name="date_init"></p>
+                    </br><p>Fecha de fin: <input type="date" id="FechaFin" name="date_end"></p>
+                    </br><p>Producto: <select name="product">
                         <option>S2MSI1C</option>
                         <option>S2MSI2A</option>
                     </select></p>
 
 
-                    <p>Plataforma: <select name="platform">
+                    </br><p>Plataforma: <select name="platform">
                         <option>Sentinel-2</option>
 
 
                     </select></p>
-                    <p>Nubosidad: <select name="cloud">
+                    </br><p>Nubosidad: <select name="cloud">
                         <option>10</option>
                         <option>20</option>
                         <option>30</option>
@@ -123,47 +122,68 @@
                     <br>
 
                 </fieldset>
-
+</br>
                 <fieldset>
                     <legend>Ver Historico Imagenes procesadas QGIS</legend>
 
                     <table>
                 <tbody>
-                    <tr>
-                        <td>
-                            <ul class="galeria">
-                                <li><a href="#img1" target="_blank"> <img src="historico_fotos/QGIS.png"></a></li>
-                            </ul>
-                        </td>
+                    <nav class="navegacion">
+		<ul class="menu">
 
-                        <td>
-                            <ul class="galeria">
-                                <li><a href="https://tfg-sentinel2.eu/api_flask/metadatos" target="_blank"> <img src="historico_fotos/metadatos.png"></a></li>
-                            </ul>
-                        </td>
+			<li class="first-item">
 
-                        <td>
-                            <ul class="galeria">
-                                 <li><a href="https://tfg-sentinel2.eu/api_flask/proyecto" target="_blank"> <img src="historico_fotos/codigo.jpg"></a></li>
-                            </ul>
-                        </td>
-                    </tr>
+					<img src="historico_fotos/QGIS.png" alt="" class="imagen">
+                    <a href="#img1" target="_blank">
+                        <span class="text-item">Imagenes</span>
+                        <span class="down-item"></span></a>
+
+			</li>
+
+			<li>
+
+					<img src="historico_fotos/metadatos.png" alt="" class="imagen" >
+                 <a href="https://tfg-sentinel2.eu/api_flask/metadatos" target="_blank">
+                    <span class="text-item" >Metadatos</span>
+                     <span class="down-item"></span></a>
+
+			</li>
+
+			<li>
+
+					<img src="historico_fotos/codigo.jpg" alt="" class="imagen">
+                <a href="https://tfg-sentinel2.eu/api_flask/proyecto" target="_blank">
+					<span class="text-item">Código</span>
+                    <span class="down-item"></span></a>
+
+			</li>
+
+		</ul>
+	</nav>
                 </tbody>
                     </table>
-
+<h1>SENTINEL-2</h1>
+                    <h2 style="text-align: center" >&#169; 2022 Antonio Miguel García Abellán</h2>
                 </fieldset>
 
 
             </form>
         </td>
         <td>
+
+
             <div class="video">
+                    <fieldset>
+
                 <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/pl7WkG_T3M4"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
+                        </fieldset>
             </div>
+
         </td>
+</br>
 
         <td>
 
