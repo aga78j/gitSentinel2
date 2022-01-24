@@ -77,16 +77,11 @@
             </iframe>
         </td>
         <td style="background-color: #cccccc; opacity: 0.8; vertical-align: top; padding: 10px; width: 400px;">
-
-            <label>Acerca de Sentinel-2</label>
-            <textarea>
-            Consiste en una misión multiespectral, abarca 13 bandas del espectro electromagnético de alta resolución en órbita polar, consiguiendo un tamaño de pixel de 10, 20 o 60 metros.
-
-          Formado por 2 Satélites, entre los dos obtienen una imagen del mismo punto cada 5 días. Su función principal es monitorizar la tierra estudiando la cubierta vegetal, los usos del terreno y de las aguas, los cauces navegables y las zonas costeras.
-
-
-          </textarea>
-
+            
+            <fieldset>
+                <legend>Acerca de Sentinel-2</legend>
+          <iframe width="380" height="210" src="https://www.youtube.com/embed/WoEL3f__dBw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </fieldset>
             <form onsubmit="download_file(this)" action="https://tfg-sentinel2.eu/api_flask/download" method="post"
                   enctype="multipart/form-data">
                 <fieldset>
