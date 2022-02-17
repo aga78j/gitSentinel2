@@ -6,6 +6,7 @@ body {
 	background-size: cover; 
 	}
 	
+	
 #map { 
   	/* position: absolute;
 	top: 0;
@@ -16,6 +17,7 @@ body {
 	/* margin-top: 5.67em; */
 	margin-left: 2.67em;
 	}
+
 
 h1 {
 	font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;;
